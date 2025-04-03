@@ -24,3 +24,12 @@ app.get("/health", (req, res) => {
 const server = app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
+
+// Handle server shutdown (optional: graceful shutdown)
+process.on("SIGINT", () => {
+  console.log("\nShutting down server...");
+  server.close(() => {
+    console.log("Server has stopped.");
+    process.exit(0);
+  });
+});

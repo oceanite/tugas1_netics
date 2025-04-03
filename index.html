@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Server Health Check</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 20px;
+      }
+      .status {
+        font-size: 24px;
+        font-weight: bold;
+        color: green;
+      }
+      .container {
+        margin-top: 20px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Server Health Status</h1>
+    <div class="container">
+      <p><strong>Nama:</strong> <span id="nama">Loading...</span></p>
+      <p><strong>NRP:</strong> <span id="nrp">Loading...</span></p>
+      <p>
+        <strong>Status:</strong>
+        <span id="status" class="status">Loading...</span>
+      </p>
+      <p><strong>Timestamp:</strong> <span id="timestamp">Loading...</span></p>
+      <p><strong>Uptime:</strong> <span id="uptime">Loading...</span></p>
+    </div>
+
+    <script>
+      let initialTimestamp; // To store the timestamp from the server
+
+      async function fetchHealth() {
+        try {
+          const response = await fetch("http://localhost:5000/health");
+          const data = await response.json();
+
+          // Store the initial timestamp
+          if (!initialTimestamp) {
+            initialTimestamp = data.timestamp;
+            document.getElementById("timestamp").textContent = initialTimestamp;
+          }
+
+          // Update status and uptime
+          document.getElementById("nama").textContent = data.nama;
+          document.getElementById("nrp").textContent = data.nrp;
+          document.getElementById("status").textContent = data.status;
+          document.getElementById("status").style.color = "green"; // Keep status in green
+          document.getElementById("uptime").textContent = data.uptime;
+        } catch (error) {
+          console.error("Server is down:", error);
+          document.getElementById("status").textContent = "DOWN";
+          document.getElementById("status").style.color = "red";
+          document.getElementById("timestamp").textContent = "-";
+          document.getElementById("uptime").textContent = "-";
+        }
+      }
+
+      // Fetch health status initially and refresh every 5 seconds
+      fetchHealth();
+      setInterval(fetchHealth, 5000);
+    </script>
+  </body>
+</html>

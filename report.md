@@ -76,3 +76,17 @@ Direktori kerja ditentukan di `/app`. File `package*.json` disalin dan `npm inst
 
 - Expose dan CMD:
 `Port 5000` diekspos dan perintah default container adalah menjalankan node `server.js`.
+
+- Di awal saya belum menggunakan DockerHub, melainkan langsung melakukan build pada VPS. Caranya adalah dengan menghubungkan VPS saya dengan terminal menggunakan `ssh`. Kemudian hubungkan VPS saya dengan GitHub menggunakan SSH Keys. Setelah semuanya saling terhubung, saya melakukan build dengan:
+
+```bash
+docker build -t tugas1-netics .
+```
+
+Kemudian menjalankan container dengan:
+
+```bash
+docker run -d -p 80:5000 --name health-api tugas1-netics
+```
+
+- 

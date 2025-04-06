@@ -46,5 +46,7 @@ Endpoint /health memberikan respons JSON berisi status server dan waktu hidupnya
 node server.js
 
 Contoh respons:
+
 ![image](https://github.com/user-attachments/assets/e979d4b4-ce0e-4f88-a3c9-73f904cf7471)
+
 

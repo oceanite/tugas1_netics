@@ -27,7 +27,7 @@
 |-----------------------------|------------------------------------------------------------------------|
 | Repository GitHub           | [tugas1_netics](https://github.com/deaginting/tugas1_netics)           |
 | File `server.js`            | [server.js](https://github.com/deaginting/tugas1_netics/blob/main/server.js) |
-| File `Dockerfile`           | [Dockerfile](https://github.com/deaginting/tugas1_netics/blob/main/Dockerfile) |
+| File `Dockerfile`           | [Dockerfile](https://github.com/deaginting/tugas1_netics/blob/main/dockerfile) |
 | Workflow CI/CD (`deploy.yml`) | [.github/workflows/deploy.yml](https://github.com/deaginting/tugas1_netics/blob/main/.github/workflows/deploy.yml) |
 | Endpoint Health Check       | [http://104.214.186.134/health](http://104.214.186.134/health)         |
 | Docker Image (health-api)   | [Docker Image](https://hub.docker.com/repository/docker/daeginting/health-api) |
@@ -58,7 +58,7 @@ Setelah berguru dari pentutor India di [video tutorial ini](https://youtu.be/4xG
 
 
 ## 3. Pembuatan `Dockerfile` dan build image
-[Dockerfile](https://github.com/deaginting/tugas1_netics/blob/main/Dockerfile) dibuat dalam bentuk multistage.
+[Dockerfile](https://github.com/deaginting/tugas1_netics/blob/main/dockerfile) dibuat dalam bentuk multistage.
 
 ```bash
 # Tahap 1: Build

@@ -16,9 +16,8 @@
    - Pembuatan dan konfigurasi API
    - Membuat VPS gratis dengan Azure 
    - Pembuatan `Dockerfile` dan build image
-   - Setup GitHub Actions untuk CI/CD
    - Push image ke Docker Hub
-   - Deploy ke VPS menggunakan Docker
+   - Deploy dan Setup GitHub Actions untuk CI/CD
    - Testing and debugging
 
 ## 🔗 Link Penting
@@ -90,7 +89,7 @@ docker run -d -p 80:5000 --name health-api tugas1-netics
 ```
 
 ## 4. Push image ke Docker Hub
-Setelah membaca ulang petunjuk penugasan, saya jadi penasaran dengan Docker Hub dan ingin mencoba menggunakannya. Caranya:
+Agar image dapat diakses secara publik, image dapat dipush ke Docker Hub. Caranya:
 
 - Login
 `docker build -t daeginting/health-api:latest .`
@@ -120,12 +119,108 @@ Dalam pengerjaan ini:
 
 Agar deployment dilakukan secara otomatis setiap kali ada perubahan pada branch main, digunakan GitHub Actions sebagai sistem Continuous Integration & Deployment (CI/CD). Caranya:
 - Buat file bernama .github/workflows/deploy.yml di dalam repositori GitHub.
-- Berikut isi `deploy.yml` saya
+- Berikut isi `deploy.yml` saya:
 ```bash
+name: Deploy to VPS
 
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        
+    - name: Build and Push to Docker Hub
+      run: |
+        docker build -t daeginting/health-api:latest .
+        docker push daeginting/health-api:latest
+
+    # Setup SSH
+    - name: Setup SSH
+      uses: webfactory/ssh-agent@v0.7.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRVT_KEY }}
+
+    - name: Deploy to VPS
+      run: |
+        ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
+          which docker || (curl -fsSL https://get.docker.com | sh)
+
+          docker pull daeginting/health-api:latest
+
+          docker stop health-api || true
+          docker rm health-api || true
+
+          docker run -d -p 80:5000 --name health-api daeginting/health-api:latest
+
+          docker ps -a
+          docker logs health-api || true
+        EOF
 ```
+### Workflow
+Pada workflow ini, proses yang didefinisikan adalah (`name: Deploy to VPS`):
+- Build Docker image,
+- Push ke Docker Hub,
+- Deploy ke VPS menggunakan SSH.
+
+### Events 
+Workflow ini akan dijalankan secara otomatis setiap kali ada push ke branch `main`. Dalam hal ini `push`.
+
+### Jobs
+Terdapat 1 job bernama `deploy`. Job ini akan:
+- Checkout repository
+- Login ke Docker Hub
+- Build & Push image
+- Setup SSH
+- SSH ke VPS dan menjalankan perintah deployment
+
+### Actions
+Actions adalah blok yang melakukan tugas tertentu. Bisa berupa action bawaan (dari GitHub) atau custom. Contoh actions di workflow ini:
 
 
-## 5. Deploy ke VPS menggunakan Docker Hub
-File deploy.yml ini 
+- Untuk mengambil isi repo ke runner
+  `uses: actions/checkout@v3`
 
+- Untuk login ke Docker Hub
+  `uses: docker/login-action@v2`
+
+- Untuk mengaktifkan SSH agar bisa remote ke VPS
+  `uses: webfactory/ssh-agent@v0.7.0`
+
+### Runners
+Runners adalah mesin tempat job dijalankan. Di workflow ini, digunakan runner GitHub default (hosted runner) dengan OS ubuntu-latest.
+Runner `runs-on: ubuntu-latest` akan:
+- Menjalankan perintah-perintah docker build, docker push
+- Menjalankan SSH untuk mengakses VPS
+
+## 6. Testing dan Debugging
+Untuk memeriksa apakah CI/CD sudah terpasang dengan baik, coba lakukan perubahan ke salah satu file, misalnya file README.md seperti yang sudah saya lakukan dengan cara melakukan echo melalui VPS yang sudah saya buat kemudian `push` ke `main`. Kemudian di GitHub akan terlihat proses/alur CI/CD nya. 
+
+![image](https://github.com/user-attachments/assets/53a403e2-c6b7-419f-8846-72097474fbb1)
+
+Jika failed, cek detail prosesnya untuk melihat penyebabnya.
+![image](https://github.com/user-attachments/assets/04f3dbd4-bb4a-468a-8e83-9a5f61ec618c)
+
+
+## KESIMPULAN
+- Containerization dilakukan untuk menampung semua artifact yang dibutuhkan untuk menjalankan aplikasi.
+- Dengan Docker Hub, image yang sudah dibuat dapat digunakan oleh siapa saja dan pada VPS mana pun.
+- CI/CD dilakukan agar setiap kali dilakukan perubahan pada code, aplikasi dapat secara otomatis terupdate.
+
+## KENDALA
+- Awalnya saya bingung maksud uptime, bagaimana cara mendapatkannya, dan bagaimana cara menampilkannya.
+- Kesulitan mencari VPS gratis. Ternyata Azure bisa pakai akun ITS.
+
+
+## Sekian dan Terima Kasih!

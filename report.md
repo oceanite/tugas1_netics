@@ -6,4 +6,5 @@
 | Dea Kristin Ginting | 5025231040 |
 </div>
 
-
+## Outline Pengerjaan
+1. Membuat API publik dengan endpoint /health menggunakan javascrip ([Lihat file server.js](https://github.com/oceanite/tugas1_netics/blob/main/server.js))

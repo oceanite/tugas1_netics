@@ -16,9 +16,9 @@
    - Pembuatan dan konfigurasi API
    - Membuat VPS gratis dengan Azure 
    - Pembuatan `Dockerfile` dan build image
+   - Setup GitHub Actions untuk CI/CD
    - Push image ke Docker Hub
    - Deploy ke VPS menggunakan Docker
-   - Setup GitHub Actions untuk CI/CD
    - Testing and debugging
 
 ## 🔗 Link Penting
@@ -89,7 +89,24 @@ Kemudian menjalankan container dengan:
 docker run -d -p 80:5000 --name health-api tugas1-netics
 ```
 
-## 4. Push image ke Docker Hub
+## 4. Deploy dan Setup GitHub Actions untuk CI/CD
+Setelah image berhasil dibangun, proses deploy dilakukan ke VPS menggunakan Docker. Tahapan-tahapan yang dilakukan di VPS antara lain:
+- Masuk ke direktori project di VPS.
+- Build docker image:
+`docker build -t tugas1-netics .`
+- Menjalankan container:
+`docker run -d -p 80:5000 --name health-api tugas1-netics`
+
+Setelah proses ini selesai, API dapat diakses melalui alamat publik VPS, dengan format
+`http://<IP_ADDRESS>/health`
+Dalam pengerjaan ini:
+`http://104.214.186.134/health`
+
+Agar deployment dilakukan secara otomatis setiap kali ada perubahan pada branch main, digunakan GitHub Actions sebagai sistem Continuous Integration & Deployment (CI/CD). Caranya:
+- Buat file bernama .github/workflows/deploy.yml di dalam repositori GitHub.
+- Berikut isi `deploy.yml` saya
+
+## 5. Push image ke Docker Hub
 Setelah membaca ulang petunjuk penugasan, saya jadi penasaran dengan Docker Hub dan ingin mencoba menggunakannya. Caranya:
 
 - Login
@@ -105,6 +122,6 @@ Kemudian untuk best practice, saya menambahkan username dan password Docker sert
 
 ![image](https://github.com/user-attachments/assets/fabc5059-54d7-4f1a-9658-e507ac783185)
 
-## 5. Deploy ke VPS menggunakan Docker
+## 5. Deploy ke VPS menggunakan Docker Hub
 File deploy.yml ini 
 

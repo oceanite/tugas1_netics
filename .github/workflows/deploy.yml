@@ -27,4 +27,5 @@ jobs:
           docker rm health-api || true
           docker run -d -p 80:5000 --name health-api tugas1-netics
           docker ps -a
+          docker logs health-api || true
         EOF

@@ -14,6 +14,7 @@
 
 2. **Langkah-langkah Pengerjaan**
    - Pembuatan dan konfigurasi API
+   - Membuat VPS gratis dengan Azure 
    - Pembuatan `Dockerfile` dan build image
    - Push image ke Docker Hub
    - Deploy ke VPS menggunakan Docker
@@ -50,6 +51,11 @@ node server.js
   Contoh respons:
 ![image](https://github.com/user-attachments/assets/e979d4b4-ce0e-4f88-a3c9-73f904cf7471)
 
+## Membuat VPS gratis dengan Azure 
+Setelah berguru dari pentutor India di ![video tutorial ini](https://youtu.be/4xGPfVfJ4iM?si=UcIOqxK4-3mNaSCc), akhirnya saya berhasil membuat sebuah server secara gratis.
+
+![image](https://github.com/user-attachments/assets/0180a2c2-df7e-427b-aa24-50b84b08b1e1)
+
 
 ## Pembuatan `Dockerfile` dan build image
 [Dockerfile](https://github.com/deaginting/tugas1_netics/blob/main/Dockerfile) dibuat dalam bentuk multistage.
@@ -74,3 +80,4 @@ CMD ["node", "server.js"]
 - Tahap kedua menyalin hasil build ke image production yang bersih, hanya berisi hasil jadi dan tanpa folder node_modules development.
 - EXPOSE 5000 menunjukkan bahwa aplikasi akan berjalan di port 5000.
 - Perintah `bash CMD ["node", "server.js"]` digunakan untuk menjalankan aplikasi saat container dijalankan.
+- Sebelum menggunakan DockerHub, saya langsung build image pada VPS, namun hal ini kurang best. 

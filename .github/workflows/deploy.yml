@@ -20,8 +20,8 @@ jobs:
         
     - name: Build and Push to Docker Hub
       run: |
-        docker build -t deaginting/health-api:latest .
-        docker push deaginting/health-api:latest
+        docker build -t daeginting/health-api:latest .
+        docker push daeginting/health-api:latest
 
     # Setup SSH
     - name: Setup SSH
@@ -31,15 +31,15 @@ jobs:
 
     - name: Deploy to VPS
       run: |
-        ssh -o StrictHostKeyChecking=no deaginting@104.214.186.134 << 'EOF'
+        ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
           which docker || (curl -fsSL https://get.docker.com | sh)
 
-          docker pull deaginting/health-api:latest
+          docker pull daeginting/health-api:latest
 
           docker stop health-api || true
           docker rm health-api || true
 
-          docker run -d -p 80:5000 --name health-api deaginting/health-api:latest
+          docker run -d -p 80:5000 --name health-api daeginting/health-api:latest
 
           docker ps -a
           docker logs health-api || true

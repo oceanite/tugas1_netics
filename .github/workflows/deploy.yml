@@ -1,0 +1,29 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Setup SSH
+      uses: webfactory/ssh-agent@v0.7.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Deploy to VPS
+      run: |
+        ssh -o StrictHostKeyChecking=no deaginting@104.214.186.134 << 'EOF'
+          cd /path/to/your/project
+          git pull origin main
+          docker build -t tugas1-netics .
+          docker stop health-api || true
+          docker rm health-api || true
+          docker run -d -p 80:5000 --name health-api tugas1-netics
+        EOF

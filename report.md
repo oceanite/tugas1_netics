@@ -105,5 +105,6 @@ Kemudian untuk best practice, saya menambahkan username dan password Docker sert
 
 ![image](https://github.com/user-attachments/assets/fabc5059-54d7-4f1a-9658-e507ac783185)
 
-
+## 5. Deploy ke VPS menggunakan Docker
+File deploy.yml ini 
 

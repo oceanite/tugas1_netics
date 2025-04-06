@@ -37,16 +37,17 @@
   File `server.js` merupakan inti dari API yang dibangun menggunakan framework **Express.js**. API ini berfungsi untuk memberikan informasi status server melalui endpoint `/health`.
 Untuk menjalankan server, dilakukan instalasi modul berikut:
 
-```bash
-npm install express cors
+  ```bash
+  npm install express cors
+
 
 Endpoint /health memberikan respons JSON berisi status server dan waktu hidupnya (uptime) dalam satuan detik. Server dapat diuji secara lokal dengan menjalankan:
 
-```bash
-node server.js
+  ```bash
+  node server.js
 
 Contoh respons:
 
-![image](https://github.com/user-attachments/assets/e979d4b4-ce0e-4f88-a3c9-73f904cf7471)
+  ![image](https://github.com/user-attachments/assets/e979d4b4-ce0e-4f88-a3c9-73f904cf7471)
 
 

@@ -51,13 +51,13 @@ node server.js
   Contoh respons:
 ![image](https://github.com/user-attachments/assets/e979d4b4-ce0e-4f88-a3c9-73f904cf7471)
 
-## Membuat VPS gratis dengan Azure 
-Setelah berguru dari pentutor India di ![video tutorial ini](https://youtu.be/4xGPfVfJ4iM?si=UcIOqxK4-3mNaSCc), akhirnya saya berhasil membuat sebuah server secara gratis.
+## 2. Membuat VPS gratis dengan Azure 
+Setelah berguru dari pentutor India di [video tutorial ini](https://youtu.be/4xGPfVfJ4iM?si=UcIOqxK4-3mNaSCc), akhirnya saya berhasil membuat sebuah server secara gratis. Kemudian jalankan server dengan klik `start`.
 
 ![image](https://github.com/user-attachments/assets/0180a2c2-df7e-427b-aa24-50b84b08b1e1)
 
 
-## Pembuatan `Dockerfile` dan build image
+## 3. Pembuatan `Dockerfile` dan build image
 [Dockerfile](https://github.com/deaginting/tugas1_netics/blob/main/Dockerfile) dibuat dalam bentuk multistage.
 
 ```bash

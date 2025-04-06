@@ -29,6 +29,6 @@
 | File `Dockerfile`           | [Dockerfile](https://github.com/deaginting/tugas1_netics/blob/main/Dockerfile) |
 | Workflow CI/CD (`deploy.yml`) | [.github/workflows/deploy.yml](https://github.com/deaginting/tugas1_netics/blob/main/.github/workflows/deploy.yml) |
 | Endpoint Health Check       | [http://104.214.186.134/health](http://104.214.186.134/health)         |
-| Docker Image (health-api)   | [Docker Image] (https://hub.docker.com/repository/docker/daeginting/health-api)|
+| Docker Image (health-api)   | [Docker Image](https://hub.docker.com/repository/docker/daeginting/health-api) |
 
 ---

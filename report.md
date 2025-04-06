@@ -8,3 +8,4 @@
 
 ## Outline Pengerjaan
 1. Membuat API publik dengan endpoint /health menggunakan javascrip ([Lihat file server.js](https://github.com/oceanite/tugas1_netics/blob/main/server.js))
+2. Melakukan registrasi image dengan DockerHub agar dapat diakses publik dan digunakan dari VPS mana pun ([Lihat docker image](https://hub.docker.com/repository/docker/daeginting/health-api))

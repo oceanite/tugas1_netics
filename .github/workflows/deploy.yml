@@ -19,11 +19,12 @@ jobs:
 
     - name: Deploy to VPS
       run: |
-        ssh -o StrictHostKeyChecking=no deaginting@104.214.186.134 << 'EOF'
-          cd /path/to/your/project
+        ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
+          cd ~/tugas1-netics || exit 1
           git pull origin main
           docker build -t tugas1-netics .
           docker stop health-api || true
           docker rm health-api || true
           docker run -d -p 80:5000 --name health-api tugas1-netics
+          docker ps -a
         EOF

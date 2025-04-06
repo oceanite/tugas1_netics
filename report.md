@@ -60,24 +60,19 @@ Setelah berguru dari pentutor India di [video tutorial ini](https://youtu.be/4xG
 ## 3. Pembuatan `Dockerfile` dan build image
 [Dockerfile](https://github.com/oceanite/tugas1_netics/blob/main/dockerfile) dibuat dalam bentuk multistage.
 
-```bash
-# Tahap 1: Build
-FROM node:18-alpine AS build
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
+- Base Image:
+Menggunakan node:18-slim, image ringan untuk aplikasi Node.js.
 
-# Tahap 2: Production Image
-FROM node:18-alpine
-WORKDIR /app
-COPY --from=build /app /app
-EXPOSE 5000
-CMD ["node", "server.js"]
-```
+- Locale dan Timezone:
+Menginstal locales dan ca-certificates, lalu mengaktifkan locale id_ID.UTF-8 dan timezone Asia/Jakarta. Tujuannya untuk menyesuaikan waktu dan format lokal.
 
-- Tahap pertama (build) menginstall dependencies di dalam image `Node.js` berbasis Alpine Linux.
-- Tahap kedua menyalin hasil build ke image production yang bersih, hanya berisi hasil jadi dan tanpa folder node_modules development.
-- EXPOSE 5000 menunjukkan bahwa aplikasi akan berjalan di port 5000.
-- Perintah `bash CMD ["node", "server.js"]` digunakan untuk menjalankan aplikasi saat container dijalankan.
-- Sebelum menggunakan DockerHub, saya langsung build image pada VPS, namun hal ini kurang best. 
+- Environment Variables:
+  - NODE_ICU_DATA=full-icu: Mengaktifkan dukungan internasionalisasi Node.js.
+  - LANG=id_ID.UTF-8: Menetapkan bahasa sistem ke Bahasa Indonesia.
+  - TZ=Asia/Jakarta: Menyesuaikan zona waktu.
+
+- Setup Aplikasi:
+Direktori kerja ditentukan di `/app`. File `package*.json` disalin dan `npm install` dijalankan untuk menginstal dependensi. Kemudian seluruh kode disalin ke container.
+
+- Expose dan CMD:
+`Port 5000` diekspos dan perintah default container adalah menjalankan node `server.js`.

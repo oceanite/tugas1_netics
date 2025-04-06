@@ -32,3 +32,10 @@
 | Docker Image (health-api)   | [Docker Image](https://hub.docker.com/repository/docker/daeginting/health-api) |
 
 ---
+
+## 1. Pembuatan dan Konfigurasi API
+  File `server.js` merupakan inti dari API yang dibangun menggunakan framework **Express.js**. API ini berfungsi untuk memberikan informasi status server melalui endpoint `/health`.
+Untuk menjalankan server, dilakukan instalasi modul berikut:
+
+```bash
+npm install express cors

@@ -13,7 +13,7 @@
    - Menampilkan data status server melalui endpoint `/health`
 
 2. **Langkah-langkah Pengerjaan**
-   - Pembuatan dan konfigurasi `server.js`
+   - Pembuatan dan konfigurasi API
    - Pembuatan `Dockerfile` dan build image
    - Push image ke Docker Hub
    - Deploy ke VPS menggunakan Docker
@@ -51,3 +51,26 @@ node server.js
 ![image](https://github.com/user-attachments/assets/e979d4b4-ce0e-4f88-a3c9-73f904cf7471)
 
 
+## Pembuatan `Dockerfile` dan build image
+[Dockerfile](https://github.com/deaginting/tugas1_netics/blob/main/Dockerfile) dibuat dalam bentuk multistage.
+
+```bash
+# Tahap 1: Build
+FROM node:18-alpine AS build
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+
+# Tahap 2: Production Image
+FROM node:18-alpine
+WORKDIR /app
+COPY --from=build /app /app
+EXPOSE 5000
+CMD ["node", "server.js"]
+```
+
+- Tahap pertama (build) menginstall dependencies di dalam image `Node.js` berbasis Alpine Linux.
+- Tahap kedua menyalin hasil build ke image production yang bersih, hanya berisi hasil jadi dan tanpa folder node_modules development.
+- EXPOSE 5000 menunjukkan bahwa aplikasi akan berjalan di port 5000.
+- Perintah `bash CMD ["node", "server.js"]` digunakan untuk menjalankan aplikasi saat container dijalankan.

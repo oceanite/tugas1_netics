@@ -89,7 +89,23 @@ Kemudian menjalankan container dengan:
 docker run -d -p 80:5000 --name health-api tugas1-netics
 ```
 
-## 4. Deploy dan Setup GitHub Actions untuk CI/CD
+## 4. Push image ke Docker Hub
+Setelah membaca ulang petunjuk penugasan, saya jadi penasaran dengan Docker Hub dan ingin mencoba menggunakannya. Caranya:
+
+- Login
+`docker build -t daeginting/health-api:latest .`
+
+- Build dan tag image
+`docker tag tugas1-netics daeginting/health-api:latest`
+
+- Push ke Docker Hub
+`docker push daeginting/health-api:latest`
+
+Kemudian untuk best practice, saya menambahkan username dan password Docker serta private key VPS saya sebagai secret di repository GitHub saya supaya lebih aman. Hasil image yang sudah dipublikasi dapat dilihat [di sini](https://hub.docker.com/repository/docker/daeginting/health-api).
+
+![image](https://github.com/user-attachments/assets/fabc5059-54d7-4f1a-9658-e507ac783185)
+
+## 5. Deploy dan Setup GitHub Actions untuk CI/CD
 Setelah image berhasil dibangun, proses deploy dilakukan ke VPS menggunakan Docker. Tahapan-tahapan yang dilakukan di VPS antara lain:
 - Masuk ke direktori project di VPS.
 - Build docker image:
@@ -105,22 +121,10 @@ Dalam pengerjaan ini:
 Agar deployment dilakukan secara otomatis setiap kali ada perubahan pada branch main, digunakan GitHub Actions sebagai sistem Continuous Integration & Deployment (CI/CD). Caranya:
 - Buat file bernama .github/workflows/deploy.yml di dalam repositori GitHub.
 - Berikut isi `deploy.yml` saya
+```bash
 
-## 5. Push image ke Docker Hub
-Setelah membaca ulang petunjuk penugasan, saya jadi penasaran dengan Docker Hub dan ingin mencoba menggunakannya. Caranya:
+```
 
-- Login
-`docker build -t daeginting/health-api:latest .`
-
-- Build dan tag image
-`docker tag tugas1-netics daeginting/health-api:latest`
-
-- Push ke Docker Hub
-`docker push daeginting/health-api:latest`
-
-Kemudian untuk best practice, saya menambahkan username dan password Docker serta private key VPS saya sebagai secret di repository GitHub saya supaya lebih aman. Hasil image yang sudah dipublikasi dapat dilihat [di sini](https://hub.docker.com/repository/docker/daeginting/health-api).
-
-![image](https://github.com/user-attachments/assets/fabc5059-54d7-4f1a-9658-e507ac783185)
 
 ## 5. Deploy ke VPS menggunakan Docker Hub
 File deploy.yml ini 

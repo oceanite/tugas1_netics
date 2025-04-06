@@ -56,7 +56,7 @@ Setelah berguru dari pentutor India di [video tutorial ini](https://youtu.be/4xG
 ![image](https://github.com/user-attachments/assets/0180a2c2-df7e-427b-aa24-50b84b08b1e1)
 
 
-## 3. Pembuatan `Dockerfile` dan build image
+## 3. Pembuatan `Dockerfile` dan Build Image
 [Dockerfile](https://github.com/oceanite/tugas1_netics/blob/main/dockerfile) dibuat dalam bentuk multistage.
 
 - Base Image:

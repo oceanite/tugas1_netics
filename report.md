@@ -38,8 +38,7 @@
 Untuk menjalankan server, dilakukan instalasi modul berikut:
 
 ```bash
-npm install express cors```
-
+npm install express cors
 
   Endpoint /health memberikan respons JSON berisi status server dan waktu hidupnya (uptime) dalam satuan detik. Server dapat diuji secara lokal dengan menjalankan:
 

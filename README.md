@@ -1,12 +1,6 @@
 <div align="center">
   
-# Laporan Tugas 1 : Deploy Docker Image ke VPS dan Penerapan CI/CD
-| Nama              | NRP         |
-|-------------------|-------------|
-| Dea Kristin Ginting | 5025231040 |
-</div>
-
-## 📂 Struktur Pengerjaan
+Docker Image Deployment Using Azure and CI/CD Implementation
 
 1. **Deskripsi Singkat Proyek**
    - API sederhana menggunakan Express.js
